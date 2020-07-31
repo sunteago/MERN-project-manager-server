@@ -4,34 +4,17 @@ const projectsController = require("../controllers/projectsController");
 const auth = require("../middleware/auth");
 const { check } = require("express-validator");
 
-//api/projects
-//creates projects
-router.post("/",auth,
-  [
-    check("projectname", "The project name is required")
-      .not()
-      .isEmpty()
-  ],
-  projectsController.createProject);
-
-//gets projects
-router.get("/", auth, projectsController.getProjects);
-
-//updates a project via id
-router.put(
-  "/:id",
+router.post(
+  "/",
   auth,
-  [
-
-  ],
-  projectsController.updateProjects
+  [check("projectname", "The project name is required").not().isEmpty()],
+  projectsController.createProject
 );
 
-//delete project
-router.delete(
-    "/:id",
-    auth,
-    projectsController.deleteProjects
-  );
+router.get("/", auth, projectsController.getProjects);
+
+router.put("/:id", auth, [], projectsController.updateProjects);
+
+router.delete("/:id", auth, projectsController.deleteProjects);
 
 module.exports = router;
